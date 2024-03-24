@@ -1,6 +1,0 @@
-
-Date edited: 2024-03-24 10:56:41.028562
-
-123 123 123
-
-The angle between vectors [123, 321, 44] and [11, 12, 2545] is 82.3651
