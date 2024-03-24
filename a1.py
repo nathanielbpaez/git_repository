@@ -15,25 +15,27 @@ with the math import to allow for percise calculations.
 The with ... as ...:
     ....
     ....
-was learned from self research as I wanted to develop a history for content
+was learned from self research as I wanted to develop a watermark for dates and history (in case i need to revisit)
 '''
 
 #imports
 import math as m
 from datetime import datetime as dt
 
+# UPON OPEN / MAIN FUNCTIONALITY
+
 def upon_open(): #runs to record dates
     with open('vector_calculator_history.txt', 'a') as vector_history:
         vector_history.write('\nDate edited: ' + str(dt.now()) + '\n')
 
 #determine what calculator the user wants to use
-def vector_checker(): #everything is ran through vector checker to allow for optimal function calling
+def main(): #everything is ran through vector checker to allow for optimal function calling
     #options
     print ("\nWhat vector related question would you like to calculate?\n")
     print (" 0. Write additional notes") 
     print (" 1. What is the angle between two 3D vectors?")
     print (" 2. What is the area of the parallelogram from two 3D vectors?")
-    print ("-1. Clear all (NOTE: CANNOT UNDO)\n")
+    print ("-1. Clear history (NOTE: CANNOT UNDO)\n")
 
     #for future reference: insert new equations here
 
@@ -60,11 +62,11 @@ def vector_checker(): #everything is ran through vector checker to allow for opt
     repeat()
     return
 
-
+#repeat function (allows for constant edits)
 def repeat(): #repeats to allow for more calculations in one run
     x = str(input("\nWould you like to do anything else? (Y/N): "))
     if x == "Y":
-        vector_checker() #recycles
+        main() #recycles
     elif x == "N":
         return #exits program
     else:
@@ -72,16 +74,8 @@ def repeat(): #repeats to allow for more calculations in one run
         return repeat()
     return
 
-
-def measurement_checker(theta): #when called it either returns from prev inputed rad or casts to deg
-    checker = (str(input('\nDo you want the answer in degrees or radians?\nPlease type either "deg" or "rad": ')))
-    if checker == "deg":
-        return m.degrees(theta)
-    elif checker == "rad":
-        return (theta)
-
-
-def vector_bucket(): # this function will be called, and will ask the user for their inputs
+# this function will be called, and will ask the user for their inputs
+def vector_bucket():
     vect = [[],[]]
     for i in range (2):
         vect[i].append(int(input(f"Enter X{i+1}: ")))
@@ -89,16 +83,10 @@ def vector_bucket(): # this function will be called, and will ask the user for t
         vect[i].append(int(input(f"Enter Z{i+1}: ")))
     return vect
 
+# EQUATIONS
 
-def cross_product(a, b): #used as a quick function to calculate the cross products and returns as a list
-    x = (a[1]*b[2]) - (a[2]*b[1])
-    y = (a[2]*b[0]) - (a[0]*b[2])
-    z = (a[0]*b[1]) - (a[1]*b[0])
-    return [x, y, z]
-
-
+#The equation for the angle of the vector is ((a*b) / (|a||b|))* cos^-1
 def vector_angle():
-    #The equation for the angle of the vector is ((a*b) / (|a||b|))* cos^-1
     vect = vector_bucket()
     a = vect[0]
     b = vect[1]
@@ -125,7 +113,7 @@ def vector_angle():
     theta = round(measurement_checker(theta), 4) #this rounds the answer to 4 decimal points regadless if rad or deg
     return theta, a, b
 
-
+#The equation for the area of the parallelogram from two vectors (dot prod of 2 vects)
 def vector_area():
     vect = vector_bucket() #call for vector information
     a = vect[0] # is the first set of coords
@@ -135,8 +123,26 @@ def vector_area():
     area_of_vector = round(area_of_vector, 4)# rounds the value
     return area_of_vector, a, b
 
+# SUB EQUATIONS
+
+# when called it either returns from prev inputed rad or casts to deg
+def measurement_checker(theta):
+    checker = (str(input('\nDo you want the answer in degrees or radians?\nPlease type either "deg" or "rad": ')))
+    # verify user intent
+    if checker == "deg":
+        return m.degrees(theta)
+    elif checker == "rad":
+        return (theta)
+
+# used as a quick function to calculate the cross products and returns as a new list (the dot prod)
+def cross_product(a, b):
+    x = (a[1]*b[2]) - (a[2]*b[1])
+    y = (a[2]*b[0]) - (a[0]*b[2])
+    z = (a[0]*b[1]) - (a[1]*b[0])
+    return [x, y, z]
+
 
 if __name__ == "__main__":
-    upon_open()
-    vector_checker() #only need to call vector_checker() because everything is under the other functions
+    upon_open() #watermarks the date
+    main() #main function call
     
