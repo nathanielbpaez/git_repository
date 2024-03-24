@@ -145,4 +145,9 @@ def cross_product(a, b):
 if __name__ == "__main__":
     upon_open() #watermarks the date
     main() #main function call
+<<<<<<< HEAD
     
+=======
+    
+    
+>>>>>>> 8c011bc363fa0dd8aa3ba36b5d55320b29766dac
