@@ -21,6 +21,7 @@ was learned from self research as I wanted to develop a watermark for dates and 
 #imports
 import math as m
 from datetime import datetime as dt
+import numpy as np
 
 # UPON OPEN / MAIN FUNCTIONALITY
 
